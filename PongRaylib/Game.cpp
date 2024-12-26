@@ -1,19 +1,21 @@
 #include "Game.h"
 
-Game::Game(const int width, const int height, const char* title)
+Game::Game(const int screenWidth, const int screenHeight, const char* title)
+	: screenWidth(screenWidth), screenHeight(screenHeight), title(title)
 {
-	this->width = width;
-	this->height = height;
-	this->title = title;
-
+	InitWindow(screenWidth, screenHeight, title);
 	SetTargetFPS(60);
 
-	InitWindow(width, height, title);
+	ball = new Ball(screenWidth, screenHeight, screenWidth / 2, screenHeight / 2, 5, 5, 20.0f, BLUE);
 }
 
 Game::~Game()
 {
 	CloseWindow();
+	
+	title = nullptr;
+
+	delete ball;
 }
 
 void Game::Run()
@@ -24,21 +26,20 @@ void Game::Run()
 
 		ClearBackground(BLACK);
 
-		DrawBall();
+		// Update positions
+		ball->Update();
+
+		// Main ball
+		ball->Draw();
 
 		// Left player
-		DrawPlatform(0, height / 2 - boardHeight / 2, GREEN);
+		DrawPlatform(0, screenHeight / 2 - boardHeight / 2, GREEN);
 
 		// Right player
-		DrawPlatform(width - 1 - boardWidth, height / 2 - boardHeight / 2, ORANGE);
+		DrawPlatform(screenWidth - 1 - boardWidth, screenHeight / 2 - boardHeight / 2, ORANGE);
 
 		EndDrawing();
 	}
-}
-
-void Game::DrawBall()
-{
-	DrawCircle(width / 2, height / 2, ballRadius, WHITE);
 }
 
 void Game::DrawPlatform(int coordX, int coordY, Color color)

@@ -1,6 +1,4 @@
-﻿  Game.cpp
-  PongRaylib.cpp
-  Generating Code...
+﻿  Ball.cpp
   PongRaylib.vcxproj -> G:\Programming\source\repos\PongRaylib\x64\Debug\PongRaylib.exe
   "pwsh.exe" не является внутренней или внешней
   командой, исполняемой программой или пакетным файлом.
