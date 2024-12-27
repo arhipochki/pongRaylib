@@ -1,7 +1,7 @@
 Pong game with raylib
 =======================
 
-![Image][preview.png]
+![Image](preview.png)
 
 One of the first projects to learn raylib.
 
