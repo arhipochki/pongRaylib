@@ -1,12 +1,18 @@
 #include "Game.h"
 
+#include <string>
+
 Game::Game(const int screenWidth, const int screenHeight, const char* title)
 	: screenWidth(screenWidth), screenHeight(screenHeight), title(title)
 {
+	
 	InitWindow(screenWidth, screenHeight, title);
 	SetTargetFPS(60);
 
-	ball = new Ball(screenWidth, screenHeight, screenWidth / 2, screenHeight / 2, 5, 5, 20.0f, BLUE);
+	ball = new Ball(screenWidth / 2, screenHeight / 2, 5, 5, 20.0f, BLUE);
+
+	leftPlatform = new Platform(0, screenHeight / 2 - platformHeight / 2, platformWidth, platformHeight, GREEN, false);
+	rightPlatform = new Platform(screenWidth - 1 - platformWidth, screenHeight / 2 - platformHeight / 2, platformWidth, platformHeight, YELLOW, true);
 }
 
 Game::~Game()
@@ -15,7 +21,7 @@ Game::~Game()
 	
 	title = nullptr;
 
-	delete ball;
+	delete ball, leftPlatform, rightPlatform;
 }
 
 void Game::Run()
@@ -26,23 +32,35 @@ void Game::Run()
 
 		ClearBackground(BLACK);
 
-		// Update positions
+		// Update objects
 		ball->Update();
+		leftPlatform->Update();
+		rightPlatform->Update();
 
-		// Main ball
+		// Check for the ball collision
+		ball->CheckPlatformCollision(leftPlatform);
+		ball->CheckPlatformCollision(rightPlatform);
+
+		// Check if the ball left the screen
+		if (ball->IsGoal().x)
+		{
+			if (ball->IsGoal().y == -1)
+				rightPlatform->IncScore();
+			else
+				leftPlatform->IncScore();
+
+			ball->ResetResult();
+		}
+
+		// Draw objects
 		ball->Draw();
+		leftPlatform->Draw();
+		rightPlatform->Draw();
 
-		// Left player
-		DrawPlatform(0, screenHeight / 2 - boardHeight / 2, GREEN);
-
-		// Right player
-		DrawPlatform(screenWidth - 1 - boardWidth, screenHeight / 2 - boardHeight / 2, ORANGE);
+		// Draw text
+		DrawText(std::to_string(leftPlatform->GetScore()).c_str(), screenWidth / 4 - fontSize / 2, 0, fontSize, WHITE);
+		DrawText(std::to_string(rightPlatform->GetScore()).c_str(), screenWidth * 3 / 4 - fontSize / 2, 0, fontSize, WHITE);
 
 		EndDrawing();
 	}
-}
-
-void Game::DrawPlatform(int coordX, int coordY, Color color)
-{
-	DrawRectangle(coordX, coordY, boardWidth, boardHeight, color);
 }
