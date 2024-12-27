@@ -9,6 +9,7 @@ One of the first projects to learn raylib.
 As left player:
  - W - up
  - S - down
+
 As right player:
  - ArrowUp
  - ArrowDown
