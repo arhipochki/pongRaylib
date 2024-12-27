@@ -8,7 +8,7 @@ Game::Game(const int screenWidth, const int screenHeight, const char* title)
 	InitWindow(screenWidth, screenHeight, title);
 	SetTargetFPS(60);
 
-	ball = new Ball(screenWidth / 2, screenHeight / 2, 5, 5, 20.0f, GOLD);
+	ball = new Ball(screenWidth / 2, screenHeight / 2, 7, 7, 20.0f, GOLD);
 
 	leftPlatform = new Platform(0, screenHeight / 2 - platformHeight / 2, platformWidth, platformHeight, WHITE, false);
 	rightPlatform = new Platform(screenWidth - 1 - platformWidth, screenHeight / 2 - platformHeight / 2, platformWidth, platformHeight, WHITE, true);

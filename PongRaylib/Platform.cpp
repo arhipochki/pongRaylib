@@ -1,8 +1,13 @@
 #include "Platform.h"
 
-Platform::Platform(const int coordX, const int coordY, const int width, const int height, Color color, bool cpuMode = false)
+Platform::Platform(const int coordX, const int coordY, const int width, const int height, Color color, int cpuMode)
 	: coordX(coordX), coordY(coordY), width(width), height(height), color(color), cpuMode(cpuMode)
 {
+	if (cpuMode == 1)
+	{
+		keyMoveUp = KEY_UP;
+		keyMoveDown = KEY_DOWN;
+	}
 }
 
 Platform::~Platform()
@@ -11,7 +16,7 @@ Platform::~Platform()
 
 void Platform::Update()
 {
-	if (cpuMode)
+	if (cpuMode == 2)
 	{
 		coordY += speedY;
 
@@ -29,11 +34,11 @@ void Platform::Update()
 	}
 	else
 	{
-		if (IsKeyDown(KEY_W))
+		if (IsKeyDown(keyMoveUp))
 		{
 			coordY -= speedY;
 		}
-		else if (IsKeyDown(KEY_S))
+		else if (IsKeyDown(keyMoveDown))
 		{
 			coordY += speedY;
 		}
