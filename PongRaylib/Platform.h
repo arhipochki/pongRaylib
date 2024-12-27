@@ -26,6 +26,6 @@ public:
 	int GetCoordX();
 	int GetCoordY();
 
-	void IncScore();
 	int GetScore();
+	void IncScore();
 };

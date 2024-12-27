@@ -5,14 +5,13 @@
 Game::Game(const int screenWidth, const int screenHeight, const char* title)
 	: screenWidth(screenWidth), screenHeight(screenHeight), title(title)
 {
-	
 	InitWindow(screenWidth, screenHeight, title);
 	SetTargetFPS(60);
 
-	ball = new Ball(screenWidth / 2, screenHeight / 2, 5, 5, 20.0f, BLUE);
+	ball = new Ball(screenWidth / 2, screenHeight / 2, 5, 5, 20.0f, GOLD);
 
-	leftPlatform = new Platform(0, screenHeight / 2 - platformHeight / 2, platformWidth, platformHeight, GREEN, false);
-	rightPlatform = new Platform(screenWidth - 1 - platformWidth, screenHeight / 2 - platformHeight / 2, platformWidth, platformHeight, YELLOW, true);
+	leftPlatform = new Platform(0, screenHeight / 2 - platformHeight / 2, platformWidth, platformHeight, WHITE, false);
+	rightPlatform = new Platform(screenWidth - 1 - platformWidth, screenHeight / 2 - platformHeight / 2, platformWidth, platformHeight, WHITE, true);
 }
 
 Game::~Game()
@@ -30,7 +29,7 @@ void Game::Run()
 	{
 		BeginDrawing();
 
-		ClearBackground(BLACK);
+		ClearBackground(backgroundColor);
 
 		// Update objects
 		ball->Update();
@@ -53,6 +52,10 @@ void Game::Run()
 		}
 
 		// Draw objects
+		// Screen separator
+		DrawRectangle(0, 0, screenWidth / 2, screenHeight, Color{ 17, 139, 209, 255 });
+		DrawCircle(screenWidth / 2, screenHeight / 2, 100, LIGHTGRAY);
+		DrawLine(screenWidth / 2, 0, screenWidth / 2, screenHeight, WHITE);
 		ball->Draw();
 		leftPlatform->Draw();
 		rightPlatform->Draw();

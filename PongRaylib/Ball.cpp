@@ -3,7 +3,6 @@
 
 Ball::Ball()
 {
-
 }
 
 Ball::Ball(const int coordX, const int coordY, 

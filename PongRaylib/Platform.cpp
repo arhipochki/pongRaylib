@@ -52,7 +52,8 @@ void Platform::Update()
 
 void Platform::Draw()
 {
-	DrawRectangle(coordX, coordY, width, height, color);
+	DrawRectangleRounded(Rectangle{ static_cast<float>(coordX), static_cast<float>(coordY), static_cast<float>(width), static_cast<float>(height) },
+		0.8, 0, color);
 }
 
 int Platform::GetHeight()

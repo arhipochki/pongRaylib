@@ -19,9 +19,11 @@ private:
 	Platform* leftPlatform  = nullptr;
 	Platform* rightPlatform = nullptr;
 
-	const int platformWidth = 30;
-	const int platformHeight = 120;
-	const int fontSize = 20;
+	const int platformWidth = 24;
+	const int platformHeight = 130;
+	const int fontSize = 60;
+
+	const Color backgroundColor = Color{ 17, 174, 209, 255 };
 public:
 	Game(const int width, const int height, const char* title);
 	~Game();
